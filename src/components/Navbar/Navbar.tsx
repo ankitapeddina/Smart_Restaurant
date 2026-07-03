@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { ShoppingCart } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 import ThemeToggle from '../ThemeToggle/ThemeToggle'
 
 const navItems = [
@@ -9,11 +11,13 @@ const navItems = [
   { label: 'Gallery', to: '/gallery' },
   { label: 'Reservation', to: '/reservation' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Cart', to: '/cart' },
   { label: 'Login', to: '/login' },
 ]
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { itemCount } = useCart()
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-[#DCC3AA]/50 bg-white/90 backdrop-blur-xl">
@@ -37,7 +41,14 @@ const Navbar = () => {
                 }`
               }
             >
-              {item.label}
+              {item.label === 'Cart' ? (
+                <span className="flex items-center gap-2">
+                  <ShoppingCart size={16} />
+                  Cart{itemCount > 0 ? ` (${itemCount})` : ''}
+                </span>
+              ) : (
+                item.label
+              )}
             </NavLink>
           ))}
           <ThemeToggle />
@@ -67,7 +78,14 @@ const Navbar = () => {
                   }`
                 }
               >
-                {item.label}
+                {item.label === 'Cart' ? (
+                  <span className="flex items-center gap-2">
+                    <ShoppingCart size={16} />
+                    Cart{itemCount > 0 ? ` (${itemCount})` : ''}
+                  </span>
+                ) : (
+                  item.label
+                )}
               </NavLink>
             ))}
             <ThemeToggle />

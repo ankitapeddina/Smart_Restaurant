@@ -12,6 +12,7 @@ import Billing from '../pages/Billing/Billing'
 import Reports from '../pages/Reports/Reports'
 import Reservation from '../pages/Reservation/Reservation'
 import Settings from '../pages/Settings/Settings'
+import CartPage from '../pages/Cart/Cart'
 import NotFound from '../pages/NotFound/NotFound'
 
 const AppRoutes = () => (
@@ -29,6 +30,7 @@ const AppRoutes = () => (
         <Route path="billing" element={<Billing />} />
         <Route path="reports" element={<Reports />} />
         <Route path="reservation" element={<Reservation />} />
+        <Route path="cart" element={<CartPage />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />
       </Route>
