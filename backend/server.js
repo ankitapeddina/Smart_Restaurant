@@ -15,10 +15,9 @@ app.get("/", (req, res) => {
     res.send("Smart Restaurant Backend is Running...");
 });
 
-connectDB();
-// Port
 const PORT = process.env.PORT || 5000;
 
+connectDB();
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
