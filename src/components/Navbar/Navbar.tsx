@@ -16,10 +16,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-500/10 bg-slate-950/80 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-[#DCC3AA]/50 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to="/" className="text-xl font-bold tracking-tight text-slate-100">
-          Smart<span className="text-emerald-400">Table</span>
+        <Link to="/" className="text-xl font-bold tracking-tight text-[#541A1A]">
+          <span className="text-[#541A1A]">Smart</span>
+          <span className="text-[#810B38]">Table</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -29,7 +30,7 @@ const Navbar = () => {
               to={item.to}
               className={({ isActive }) =>
                 `text-sm font-medium transition ${
-                  isActive ? 'text-emerald-300' : 'text-slate-300 hover:text-white'
+                  isActive ? 'text-[#810B38]' : 'text-[#6B4A3F] hover:bg-[#DCC3AA] hover:text-[#541A1A] rounded-full px-3 py-2'
                 }`
               }
             >
@@ -42,7 +43,7 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => setIsOpen((value) => !value)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-600 bg-slate-900/70 text-slate-100 transition hover:border-emerald-400/80 md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#DCC3AA] bg-white text-[#541A1A] transition hover:border-[#810B38] md:hidden"
           aria-label="Toggle navigation"
         >
           <span className="text-lg">{isOpen ? '✕' : '☰'}</span>
@@ -50,7 +51,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="border-t border-slate-500/10 bg-slate-950/95 pb-6 md:hidden">
+        <div className="border-t border-[#DCC3AA]/50 bg-white/95 pb-6 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6">
             {navItems.map((item) => (
               <NavLink
@@ -59,7 +60,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
                   `rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                    isActive ? 'bg-emerald-500/10 text-emerald-300' : 'text-slate-300 hover:text-white'
+                    isActive ? 'bg-[#DCC3AA] text-[#810B38]' : 'text-[#6B4A3F] hover:bg-[#DCC3AA] hover:text-[#541A1A]'
                   }`
                 }
               >

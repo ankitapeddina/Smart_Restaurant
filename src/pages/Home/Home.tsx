@@ -24,34 +24,37 @@ const Home = () => {
         <SectionHeader title="Featured foods" subtitle="Signature dishes" />
         <div className="grid gap-6 md:grid-cols-3">
           {featured.map((item) => (
-            <motion.div key={item.id} whileHover={{ y: -6 }}>
+            <motion.div key={item.id} whileHover={{ y: -6 }} className="transition-transform duration-300">
               <MenuCard {...item} />
             </motion.div>
           ))}
         </div>
       </section>
 
-      <section id="about-preview" className="rounded-[32px] border border-slate-500/10 bg-slate-950/70 p-10 shadow-xl shadow-slate-950/20">
+      <section id="about-preview" className="rounded-[32px] border border-[#F1E2D1] bg-white p-10 shadow-xl shadow-[rgba(84,26,26,0.08)]">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_0.8fr] lg:items-center">
           <div>
             <SectionHeader title="About our kitchen" subtitle="Crafted with care" />
-            <p className="max-w-2xl text-slate-300">
+            <p className="max-w-2xl text-[#6E564D]">
               SmartTable blends modern presentation with warm hospitality. Every menu item is created from high-quality ingredients and a passion for thoughtful service.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/about" className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/15">
+              <Link
+                to="/about"
+                className="rounded-full border border-[#810B38] bg-white px-5 py-3 text-sm font-semibold text-[#810B38] transition duration-300 hover:bg-[#810B38] hover:text-white"
+              >
                 Learn more
               </Link>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-[24px] bg-slate-900/80 p-6">
-              <p className="text-sm uppercase tracking-[0.35em] text-emerald-400">Our Promise</p>
-              <p className="mt-3 text-slate-300">Fresh ingredients, unique flavors, and exceptional presentation tailored for every guest.</p>
+            <div className="rounded-[24px] border border-[#F1E2D1] bg-white p-6 shadow-lg shadow-[rgba(84,26,26,0.08)]">
+              <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Our Promise</p>
+              <p className="mt-3 text-[#6E564D]">Fresh ingredients, unique flavors, and exceptional presentation tailored for every guest.</p>
             </div>
-            <div className="rounded-[24px] bg-slate-900/80 p-6">
-              <p className="text-sm uppercase tracking-[0.35em] text-emerald-400">Atmosphere</p>
-              <p className="mt-3 text-slate-300">A refined dining space with contemporary lighting, sophisticated textures, and calm service.</p>
+            <div className="rounded-[24px] border border-[#F1E2D1] bg-white p-6 shadow-lg shadow-[rgba(84,26,26,0.08)]">
+              <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Atmosphere</p>
+              <p className="mt-3 text-[#6E564D]">A refined dining space with contemporary lighting, sophisticated textures, and calm service.</p>
             </div>
           </div>
         </div>
@@ -67,39 +70,42 @@ const Home = () => {
       </section>
 
       <section id="reviews" className="grid gap-6 lg:grid-cols-3">
-        <div className="rounded-[28px] bg-slate-950/80 p-8 shadow-xl shadow-slate-950/20">
-          <p className="text-sm uppercase tracking-[0.35em] text-emerald-400">Customer review</p>
-          <p className="mt-4 text-xl font-semibold text-white">"Best dining experience with unique dishes and attentive service."</p>
-          <p className="mt-4 text-slate-300">- Maya S.</p>
+        <div className="rounded-[28px] border border-[#F1E2D1] bg-white p-8 shadow-xl shadow-[rgba(84,26,26,0.08)]">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Customer review</p>
+          <p className="mt-4 text-xl font-semibold text-[#541A1A]">"Best dining experience with unique dishes and attentive service."</p>
+          <p className="mt-4 text-[#6E564D]">- Maya S.</p>
         </div>
-        <div className="rounded-[28px] bg-slate-950/80 p-8 shadow-xl shadow-slate-950/20">
-          <p className="text-sm uppercase tracking-[0.35em] text-emerald-400">Customer review</p>
-          <p className="mt-4 text-xl font-semibold text-white">"A perfect blend of modern design and culinary excellence."</p>
-          <p className="mt-4 text-slate-300">- Aaron K.</p>
+        <div className="rounded-[28px] border border-[#F1E2D1] bg-white p-8 shadow-xl shadow-[rgba(84,26,26,0.08)]">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Customer review</p>
+          <p className="mt-4 text-xl font-semibold text-[#541A1A]">"A perfect blend of modern design and culinary excellence."</p>
+          <p className="mt-4 text-[#6E564D]">- Aaron K.</p>
         </div>
-        <div className="rounded-[28px] bg-slate-950/80 p-8 shadow-xl shadow-slate-950/20">
-          <p className="text-sm uppercase tracking-[0.35em] text-emerald-400">Customer review</p>
-          <p className="mt-4 text-xl font-semibold text-white">"The atmosphere makes every meal feel special."</p>
-          <p className="mt-4 text-slate-300">- Nina R.</p>
+        <div className="rounded-[28px] border border-[#F1E2D1] bg-white p-8 shadow-xl shadow-[rgba(84,26,26,0.08)]">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Customer review</p>
+          <p className="mt-4 text-xl font-semibold text-[#541A1A]">"The atmosphere makes every meal feel special."</p>
+          <p className="mt-4 text-[#6E564D]">- Nina R.</p>
         </div>
       </section>
 
-      <section id="gallery-preview" className="rounded-[32px] border border-slate-500/10 bg-slate-950/70 p-6 shadow-xl shadow-slate-950/20">
+      <section id="gallery-preview" className="rounded-[32px] border border-[#F1E2D1] bg-white p-6 shadow-xl shadow-[rgba(84,26,26,0.08)]">
         <SectionHeader title="Gallery preview" subtitle="Atmosphere & plating" />
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="aspect-[4/3] rounded-[28px] bg-gradient-to-br from-emerald-500/15 to-slate-900/40" />
-          <div className="aspect-[4/3] rounded-[28px] bg-gradient-to-br from-cyan-500/15 to-slate-900/40" />
-          <div className="aspect-[4/3] rounded-[28px] bg-gradient-to-br from-violet-500/15 to-slate-900/40" />
+          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#F1E2D1,_#DCC3AA)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
+          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#FFF8F3,_#F1E2D1)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
+          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#DCC3AA,_#F1E2D1)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
         </div>
       </section>
 
-      <section id="reservation-cta" className="rounded-[32px] bg-gradient-to-r from-slate-900/90 to-slate-800/90 p-10 shadow-2xl shadow-slate-950/30">
-        <div className="flex flex-col gap-6 rounded-[32px] border border-emerald-400/10 bg-slate-950/70 p-10 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+      <section id="reservation-cta" className="rounded-[32px] border border-[#F1E2D1] bg-white p-10 shadow-2xl shadow-[rgba(84,26,26,0.08)]">
+        <div className="flex flex-col gap-6 rounded-[32px] border border-[#F1E2D1] bg-[#FFF8F3] p-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-emerald-300">Reserve a table</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Enjoy an elevated dining experience tonight.</h2>
+            <p className="text-sm uppercase tracking-[0.35em] text-[#810B38]">Reserve a table</p>
+            <h2 className="mt-3 text-3xl font-semibold text-[#541A1A]">Enjoy an elevated dining experience tonight.</h2>
           </div>
-          <Link to="/reservation" className="inline-flex rounded-full bg-emerald-500 px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400">
+          <Link
+            to="/reservation"
+            className="inline-flex rounded-full bg-[#810B38] px-6 py-4 text-sm font-semibold text-white transition duration-300 hover:bg-[#541A1A]"
+          >
             Book now
           </Link>
         </div>
