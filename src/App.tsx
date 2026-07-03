@@ -1,12 +1,15 @@
 import './App.css'
+import AppRoutes from './routes/AppRoutes'
+import { AuthProvider } from './context/AuthContext'
+import { useTheme } from './hooks/useTheme'
 
 function App() {
+  useTheme()
+
   return (
-    <>
-       <div className="App">
-        <h1>Smart Resaturant</h1>
-      </div>
-    </>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   )
 }
 
