@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
 import FloatingButton from '../components/FloatingButton/FloatingButton'
+import CartToast from '../components/Cart/CartToast'
 
 const MainLayout = () => {
   return (
@@ -12,6 +13,7 @@ const MainLayout = () => {
       </main>
       <Footer />
       <FloatingButton />
+      <CartToast />
     </div>
   )
 }

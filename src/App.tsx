@@ -1,6 +1,7 @@
 import './App.css'
 import AppRoutes from './routes/AppRoutes'
 import { AuthProvider } from './context/AuthContext'
+import { CartProvider } from './context/CartContext'
 import { useTheme } from './hooks/useTheme'
 
 function App() {
@@ -8,7 +9,9 @@ function App() {
 
   return (
     <AuthProvider>
-      <AppRoutes />
+      <CartProvider>
+        <AppRoutes />
+      </CartProvider>
     </AuthProvider>
   )
 }
