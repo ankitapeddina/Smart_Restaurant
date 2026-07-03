@@ -1,6 +1,6 @@
 const Loader = () => (
   <div className="flex items-center justify-center py-16">
-    <div className="h-12 w-12 animate-spin rounded-full border-4 border-emerald-400/60 border-t-transparent" />
+    <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#810B38]/60 border-t-transparent" />
   </div>
 )
 

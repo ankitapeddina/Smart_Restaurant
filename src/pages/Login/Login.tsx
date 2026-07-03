@@ -26,32 +26,32 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950/90 px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md rounded-[32px] border border-slate-500/10 bg-slate-900/90 p-10 shadow-2xl shadow-slate-950/30">
+    <div className="min-h-screen bg-[#F1E2D1] px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-md rounded-[32px] border border-[#F1E2D1] bg-white p-10 shadow-2xl shadow-[rgba(84,26,26,0.08)]">
         <SectionHeader title="Welcome back" subtitle="Login to your dashboard" />
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm text-slate-300">Email</label>
+            <label className="block text-sm text-[#6E564D]">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-slate-100 outline-none focus:border-emerald-400"
+              className="mt-2 w-full rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]"
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-slate-300">Password</label>
+            <label className="block text-sm text-[#6E564D]">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-slate-100 outline-none focus:border-emerald-400"
+              className="mt-2 w-full rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]"
               required
             />
           </div>
-          {error && <p className="text-sm text-rose-400">{error}</p>}
-          <button type="submit" className="w-full rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400">
+          {error && <p className="text-sm text-[#810B38]">{error}</p>}
+          <button type="submit" className="w-full rounded-full bg-[#810B38] px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#541A1A]">
             Sign in
           </button>
         </form>
