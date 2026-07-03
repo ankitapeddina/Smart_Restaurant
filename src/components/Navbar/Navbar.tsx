@@ -18,7 +18,10 @@ const Navbar = () => {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-[#DCC3AA]/50 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to="/" className="text-xl font-bold tracking-tight text-[#541A1A]">
+<Link
+        to="/"
+        className="text-[28px] font-[700] tracking-[0.5px] text-[#541A1A] font-display"
+      >
           <span className="text-[#541A1A]">Smart</span>
           <span className="text-[#810B38]">Table</span>
         </Link>
@@ -29,7 +32,7 @@ const Navbar = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `text-sm font-medium transition ${
+                `text-[16px] font-[500] font-sans transition ${
                   isActive ? 'text-[#810B38]' : 'text-[#6B4A3F] hover:bg-[#DCC3AA] hover:text-[#541A1A] rounded-full px-3 py-2'
                 }`
               }
@@ -59,7 +62,7 @@ const Navbar = () => {
                 to={item.to}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                  `rounded-2xl px-4 py-3 text-[16px] font-[500] font-sans transition ${
                     isActive ? 'bg-[#DCC3AA] text-[#810B38]' : 'text-[#6B4A3F] hover:bg-[#DCC3AA] hover:text-[#541A1A]'
                   }`
                 }

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -17,10 +18,32 @@
 
 html, body, #root {
   min-height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
 }
 
 body {
   @apply bg-[#F1E2D1] text-[#6E564D] antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.font-sans {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
 }
 
 * {

@@ -6,6 +6,27 @@ import MenuCard from '../../components/MenuCard/MenuCard'
 import { getFeaturedMenu, getPopularDishes } from '../../services/menuService'
 import type { MenuItem } from '../../types'
 import { Link } from 'react-router-dom'
+import image1 from '../../assets/image1.jpg'
+import image3 from '../../assets/image3.jpg'
+import image5 from '../../assets/image5.avif'
+
+const galleryPreviewItems = [
+  {
+    title: 'Luxury Dining Hall',
+    image: image1,
+    alt: 'Elegant dining hall with refined restaurant ambiance',
+  },
+  {
+    title: 'Restaurant Interior',
+    image: image3,
+    alt: 'Sophisticated interior and warm lighting in the restaurant',
+  },
+  {
+    title: 'Outdoor Seating',
+    image: image5,
+    alt: 'Stylish outdoor seating area designed for fine dining',
+  },
+]
 
 const Home = () => {
   const [featured, setFeatured] = useState<MenuItem[]>([])
@@ -90,9 +111,23 @@ const Home = () => {
       <section id="gallery-preview" className="rounded-[32px] border border-[#F1E2D1] bg-white p-6 shadow-xl shadow-[rgba(84,26,26,0.08)]">
         <SectionHeader title="Gallery preview" subtitle="Atmosphere & plating" />
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#F1E2D1,_#DCC3AA)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
-          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#FFF8F3,_#F1E2D1)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
-          <div className="aspect-[4/3] rounded-[28px] bg-[linear-gradient(180deg,_#DCC3AA,_#F1E2D1)] shadow-lg shadow-[rgba(84,26,26,0.08)]" />
+          {galleryPreviewItems.map((item) => (
+            <div
+              key={item.title}
+              className="group relative aspect-[4/3] overflow-hidden rounded-[28px] border border-[#F1E2D1] bg-white shadow-lg shadow-[rgba(84,26,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_-20px_rgba(129,11,56,0.35)]"
+            >
+              <img
+                src={item.image}
+                alt={item.alt}
+                loading="lazy"
+                className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[rgba(129,11,56,0.4)] opacity-0 transition duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 flex items-end p-4 opacity-0 transition duration-300 group-hover:opacity-100">
+                <span className="text-sm font-semibold text-white drop-shadow-sm">{item.title}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

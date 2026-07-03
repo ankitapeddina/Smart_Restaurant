@@ -13,7 +13,7 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: But
 
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 shadow-lg shadow-[rgba(129,11,56,0.1)] ${style} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-[16px] font-[600] tracking-[0.3px] font-sans transition-all duration-300 shadow-lg shadow-[rgba(129,11,56,0.1)] ${style} ${className}`}
       {...props}
     >
       {children}

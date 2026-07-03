@@ -5,6 +5,10 @@ export interface MenuItem {
   price: string
   tag: string
   image?: string
+  category?: string
+  rating?: number
+  availability?: boolean
+  featured?: boolean
 }
 
 export interface Order {
