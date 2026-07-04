@@ -29,6 +29,7 @@ interface CartContextValue {
   removeItem: (id: string) => void
   clearCart: () => void
   setReservation: (reservation: ReservationInfo) => void
+  showToast: (message: string) => void
   clearToast: () => void
 }
 
@@ -113,6 +114,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setReservationState(nextReservation)
   }
 
+  const showToast = (message: string) => setToastMessage(message)
   const clearToast = () => setToastMessage(null)
 
   const itemCount = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items])
@@ -138,6 +140,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       removeItem,
       clearCart,
       setReservation,
+      showToast,
       clearToast,
     }),
     [items, itemCount, subtotal, gstAmount, reservationDiscount, deliveryCharge, grandTotal, reservation, toastMessage],

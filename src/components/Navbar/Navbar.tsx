@@ -1,37 +1,48 @@
 import { useState } from 'react'
-import { ShoppingCart } from 'lucide-react'
-import { Link, NavLink } from 'react-router-dom'
+import { ShoppingCart, LogOut } from 'lucide-react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
 import ThemeToggle from '../ThemeToggle/ThemeToggle'
-
-const navItems = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Menu', to: '/menu' },
-  { label: 'Gallery', to: '/gallery' },
-  { label: 'Reservation', to: '/reservation' },
-  { label: 'Contact', to: '/contact' },
-  { label: 'Cart', to: '/cart' },
-  { label: 'Login', to: '/login' },
-]
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { itemCount } = useCart()
+  const { isAuthenticated, user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const publicNav = [
+    { label: 'Login', to: '/login' },
+    { label: 'Register', to: '/register' },
+  ]
+
+  const privateNav = [
+    { label: 'Home', to: '/' },
+    { label: 'About', to: '/about' },
+    { label: 'Menu', to: '/menu' },
+    { label: 'Gallery', to: '/gallery' },
+    { label: 'Reservation', to: '/reservation' },
+    { label: 'My Reservations', to: '/my-reservations' },
+    { label: 'Contact', to: '/contact' },
+    { label: 'Cart', to: '/cart' },
+    { label: user?.fullname ? `Profile (${user.fullname.split(' ')[0]})` : 'Profile', to: '/profile' },
+  ]
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-[#DCC3AA]/50 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-<Link
-        to="/"
-        className="text-[28px] font-[700] tracking-[0.5px] text-[#541A1A] font-display"
-      >
+        <Link to="/" className="text-[28px] font-[700] tracking-[0.5px] text-[#541A1A] font-display">
           <span className="text-[#541A1A]">Smart</span>
           <span className="text-[#810B38]">Table</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
+          {(isAuthenticated ? privateNav : publicNav).map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -51,6 +62,13 @@ const Navbar = () => {
               )}
             </NavLink>
           ))}
+
+          {isAuthenticated && (
+            <button type="button" onClick={handleLogout} className="inline-flex items-center gap-2 rounded-full border border-[#DCC3AA] bg-white px-4 py-2 text-[15px] font-[500] text-[#541A1A] transition hover:border-[#810B38] hover:text-[#810B38]">
+              <LogOut size={16} /> Logout
+            </button>
+          )}
+
           <ThemeToggle />
         </nav>
 
@@ -67,7 +85,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="border-t border-[#DCC3AA]/50 bg-white/95 pb-6 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6">
-            {navItems.map((item) => (
+            {(isAuthenticated ? privateNav : publicNav).map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -88,6 +106,11 @@ const Navbar = () => {
                 )}
               </NavLink>
             ))}
+            {isAuthenticated && (
+              <button type="button" onClick={handleLogout} className="rounded-2xl border border-[#DCC3AA] bg-white px-4 py-3 text-left text-[#541A1A] transition hover:border-[#810B38] hover:text-[#810B38]">
+                Logout
+              </button>
+            )}
             <ThemeToggle />
           </div>
         </div>
