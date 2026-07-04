@@ -1,21 +1,63 @@
-import { useState } from 'react'
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import SectionHeader from '../../components/Common/SectionHeader'
-import Loader from '../../components/Loader/Loader'
+import './Login.css'
 
 const Login = () => {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+
+  const validateEmail = (value: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(value.trim())
+  }
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setEmail(value)
+    setError('')
+    setEmailError('')
+  }
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setPassword(value)
+    setError('')
+    setPasswordError('')
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError('')
+    setEmailError('')
+    setPasswordError('')
+
+    // Validation
+    let hasError = false
+
+    if (!email.trim()) {
+      setEmailError('Email is required')
+      hasError = true
+    } else if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address')
+      hasError = true
+    }
+
+    if (!password) {
+      setPasswordError('Password is required')
+      hasError = true
+    }
+
+    if (hasError) {
+      return
+    }
+
     setIsLoading(true)
 
     try {
@@ -31,39 +73,72 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F1E2D1] px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md rounded-[32px] border border-[#F1E2D1] bg-white p-10 shadow-2xl shadow-[rgba(84,26,26,0.08)]">
-        <SectionHeader title="Welcome back" subtitle="Login to your dashboard" />
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-sm text-[#6E564D]">Email</label>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-header">
+          <h1 className="login-title">Welcome back</h1>
+          <p className="login-subtitle">Login to your dashboard</p>
+        </div>
+
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]"
-              required
+              onChange={handleEmailChange}
+              className={`form-input ${emailError ? 'form-input--error' : ''}`}
+              placeholder="Enter your email"
+              disabled={isLoading}
             />
+            {emailError && <p className="form-error">{emailError}</p>}
           </div>
-          <div>
-            <label className="block text-sm text-[#6E564D]">Password</label>
+
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
             <input
+              id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-2 w-full rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]"
-              required
+              onChange={handlePasswordChange}
+              className={`form-input ${passwordError ? 'form-input--error' : ''}`}
+              placeholder="Enter your password"
+              disabled={isLoading}
             />
+            {passwordError && <p className="form-error">{passwordError}</p>}
           </div>
-          {error ? <p className="text-sm text-[#810B38]">{error}</p> : null}
-          <button type="submit" disabled={isLoading} className="w-full rounded-full bg-[#810B38] px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#541A1A] disabled:cursor-not-allowed disabled:opacity-70">
-            {isLoading ? 'Signing in...' : 'Sign in'}
+
+          {error && <p className="form-alert form-alert--error">{error}</p>}
+
+          <button 
+            type="submit" 
+            disabled={isLoading || !email || !password} 
+            className="login-button"
+            aria-busy={isLoading}
+          >
+            {isLoading ? (
+              <span className="button-content">
+                <span className="button-spinner" />
+                <span className="button-text">Signing in...</span>
+              </span>
+            ) : (
+              'Sign in'
+            )}
           </button>
-          {isLoading ? <div className="flex justify-center"><Loader /></div> : null}
         </form>
-        <div className="mt-4 flex flex-col gap-3 text-sm text-[#810B38]">
-          <Link to="/forgot-password" className="underline underline-offset-4">Forgot password?</Link>
-          <Link to="/register" className="underline underline-offset-4">Create a new account</Link>
+
+        <div className="login-links">
+          <Link to="/forgot-password" className="login-link">
+            Forgot password?
+          </Link>
+          <Link to="/register" className="login-link">
+            Create a new account
+          </Link>
         </div>
       </div>
     </div>

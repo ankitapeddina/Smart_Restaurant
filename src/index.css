@@ -34,6 +34,39 @@ select {
   font-family: 'DM Sans', sans-serif;
 }
 
+.reservation-phone-container.react-tel-input .reservation-phone-input.form-control {
+  box-shadow: none;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.5;
+}
+
+.reservation-phone-container.react-tel-input .reservation-phone-input.form-control:focus {
+  box-shadow: none;
+}
+
+.reservation-phone-container.react-tel-input .reservation-phone-button.flag-dropdown {
+  border: 0;
+  background: transparent;
+}
+
+.reservation-phone-container.react-tel-input .reservation-phone-button.flag-dropdown.open,
+.reservation-phone-container.react-tel-input .reservation-phone-button.flag-dropdown:hover,
+.reservation-phone-container.react-tel-input .reservation-phone-button.flag-dropdown:focus {
+  background: transparent;
+}
+
+.reservation-phone-container.react-tel-input .selected-flag {
+  border-radius: 24px 0 0 24px;
+  padding-left: 18px;
+  width: 76px;
+}
+
+.reservation-phone-container.react-tel-input .country-list.reservation-phone-dropdown {
+  color: #541A1A;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
 .font-sans {
   font-family: 'DM Sans', sans-serif;
 }

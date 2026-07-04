@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { authApi, getErrorMessage } from '../services/api'
+import { authApi, getErrorMessage, getLoginErrorMessage } from '../services/api'
 import type { User, UserCredentials, UserRegister } from '../types'
 
 interface AuthContextValue {
@@ -44,32 +44,50 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let isActive = true
+
     const fetchProfile = async () => {
       if (!token) {
-        setAuthenticated(false)
-        setLoading(false)
+        if (isActive) {
+          setAuthenticated(false)
+          setLoading(false)
+        }
         return
       }
 
+      setLoading(true)
       try {
         const response = await authApi.getProfile()
-        setUser(response.data?.user || null)
-        if (response.data?.user) {
-          window.localStorage.setItem(USER_KEY, JSON.stringify(response.data.user))
+        if (!isActive) return
+
+        const profileUser = response.data?.user
+        if (!profileUser) {
+          throw new Error('Profile not found')
         }
+
+        setUser(profileUser)
+        window.localStorage.setItem(USER_KEY, JSON.stringify(profileUser))
         setAuthenticated(true)
       } catch (error: unknown) {
+        if (!isActive) return
+
         window.localStorage.removeItem(TOKEN_KEY)
         window.localStorage.removeItem(USER_KEY)
         setToken(null)
         setUser(null)
         setAuthenticated(false)
       } finally {
-        setLoading(false)
+        if (isActive) {
+          setLoading(false)
+        }
       }
     }
 
     fetchProfile()
+
+    return () => {
+      isActive = false
+    }
   }, [token])
 
   const handleAuthResponse = (response: any) => {
@@ -92,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       handleAuthResponse(response)
       return true
     } catch (error: unknown) {
-      throw new Error(getErrorMessage(error))
+      throw new Error(getLoginErrorMessage(error))
     }
   }
 
