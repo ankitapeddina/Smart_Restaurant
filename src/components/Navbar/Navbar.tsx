@@ -14,6 +14,8 @@ const Navbar = () => {
   const publicNav = [
     { label: 'Login', to: '/login' },
     { label: 'Register', to: '/register' },
+    { label: 'Admin Login', to: '/admin/login' },
+    { label: 'Admin Register', to: '/admin/register' },
   ]
 
   const privateNav = [
@@ -25,6 +27,7 @@ const Navbar = () => {
     { label: 'My Reservations', to: '/my-reservations' },
     { label: 'Contact', to: '/contact' },
     { label: 'Cart', to: '/cart' },
+    { label: 'Admin Portal', to: '/admin/login' },
     { label: user?.fullname ? `Profile (${user.fullname.split(' ')[0]})` : 'Profile', to: '/profile' },
   ]
 

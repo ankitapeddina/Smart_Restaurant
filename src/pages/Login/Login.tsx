@@ -76,7 +76,7 @@ const Login = () => {
     <div className="login-page">
       <div className="login-container">
         <div className="login-header">
-          <h1 className="login-title">Welcome back</h1>
+          <h1 className="login-title">Sign In (Customer)</h1>
           <p className="login-subtitle">Login to your dashboard</p>
         </div>
 
@@ -127,7 +127,7 @@ const Login = () => {
                 <span className="button-text">Signing in...</span>
               </span>
             ) : (
-              'Sign in'
+              'Sign In (Customer)'
             )}
           </button>
         </form>
@@ -139,6 +139,19 @@ const Login = () => {
           <Link to="/register" className="login-link">
             Create a new account
           </Link>
+        </div>
+
+        <div className="mt-6 border-t border-[#DCC3AA]/40 pt-4">
+          <p className="mb-3 text-sm font-semibold text-[#810B38]">-------------------------</p>
+          <p className="mb-3 text-sm font-semibold text-[#810B38]">Admin access</p>
+          <div className="flex flex-col gap-2">
+            <Link to="/admin/login" className="login-link">
+              Login as Admin
+            </Link>
+            <Link to="/admin/register" className="login-link">
+              Register Admin
+            </Link>
+          </div>
         </div>
       </div>
     </div>
