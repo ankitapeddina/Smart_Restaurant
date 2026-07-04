@@ -21,11 +21,20 @@ import Profile from '../pages/Profile/Profile'
 import NotFound from '../pages/NotFound/NotFound'
 import { useAuth } from '../context/AuthContext'
 
+const RouteLoading = () => (
+  <div className="flex min-h-screen items-center justify-center bg-[#F1E2D1] px-6 text-center text-[#541A1A]">
+    <div>
+      <div className="mx-auto mb-5 h-12 w-12 animate-spin rounded-full border-4 border-[#810B38]/60 border-t-transparent" />
+      <p className="text-base font-semibold">Checking your session...</p>
+    </div>
+  </div>
+)
+
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    return <RouteLoading />
   }
 
   return isAuthenticated ? children : <Navigate to="/login" replace />
@@ -35,7 +44,7 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    return <RouteLoading />
   }
 
   return isAuthenticated ? <Navigate to="/" replace /> : children

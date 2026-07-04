@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SectionHeader from '../../components/Common/SectionHeader'
 import Loader from '../../components/Loader/Loader'
 import { useCart } from '../../context/CartContext'
@@ -22,6 +22,11 @@ const Reservation = () => {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isPhoneInputMounted, setIsPhoneInputMounted] = useState(false)
+
+  useEffect(() => {
+    setIsPhoneInputMounted(true)
+  }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -34,7 +39,8 @@ const Reservation = () => {
         throw new Error('Please fill in all required fields')
       }
 
-      const phoneNumber = parsePhoneNumberFromString(form.phone)
+      const normalizedPhone = form.phone.startsWith('+') ? form.phone : `+${form.phone.replace(/\D/g, '')}`
+      const phoneNumber = parsePhoneNumberFromString(normalizedPhone)
       if (!phoneNumber || !phoneNumber.isValid()) {
         throw new Error('Please enter a valid phone number')
       }
@@ -74,46 +80,62 @@ const Reservation = () => {
         <form className="mt-8 grid gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
           <input className="rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]" placeholder="Name" value={form.name} onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))} />
           <div className="rounded-3xl border border-[#DCC3AA] bg-white px-0 py-0 outline-none focus-within:border-[#810B38] focus-within:ring-4 focus-within:ring-[rgba(129,11,56,0.12)]">
-            <PhoneInput
-              country="in"
-              onlyCountries={['in', 'us', 'gb', 'au', 'ca', 'fr', 'de', 'es', 'it', 'nl', 'jp', 'cn', 'br', 'za']}
-              countryCodeEditable={false}
-              enableSearch
-              searchPlaceholder="Search country"
-              value={form.phone}
-              onChange={(value) => setForm((current) => ({ ...current, phone: value }))}
-              inputProps={{
-                name: 'phone',
-                required: true,
-                className: 'w-full rounded-3xl border-none bg-transparent px-4 py-3 text-[#541A1A] outline-none',
-                style: { height: '100%' },
-              }}
-              inputStyle={{
-                width: '100%',
-                borderRadius: '24px',
-                paddingLeft: '90px',
-                backgroundColor: '#ffffff',
-                color: '#541A1A',
-                fontSize: '0.95rem',
-                border: 'none',
-                outline: 'none',
-              }}
-              buttonStyle={{
-                border: 'none',
-                borderRadius: '24px 0 0 24px',
-                backgroundColor: 'transparent',
-              }}
-              containerStyle={{
-                width: '100%',
-                borderRadius: '24px',
-                overflow: 'hidden',
-              }}
-              dropdownStyle={{
-                borderRadius: '18px',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
-                zIndex: 20,
-              }}
-            />
+            {isPhoneInputMounted ? (
+              <PhoneInput
+                country="in"
+                onlyCountries={['in', 'us', 'gb', 'au', 'ca', 'fr', 'de', 'es', 'it', 'nl', 'jp', 'cn', 'br', 'za']}
+                countryCodeEditable={false}
+                enableSearch
+                enableClickOutside={false}
+                searchPlaceholder="Search country"
+                specialLabel=""
+                value={form.phone}
+                onChange={(value) => setForm((current) => ({ ...current, phone: value }))}
+                inputProps={{
+                  name: 'phone',
+                  required: true,
+                }}
+                inputClass="reservation-phone-input"
+                buttonClass="reservation-phone-button"
+                containerClass="reservation-phone-container"
+                dropdownClass="reservation-phone-dropdown"
+                inputStyle={{
+                  width: '100%',
+                  height: '54px',
+                  borderRadius: '24px',
+                  paddingLeft: '90px',
+                  backgroundColor: '#ffffff',
+                  color: '#541A1A',
+                  fontSize: '0.95rem',
+                  border: 'none',
+                  outline: 'none',
+                }}
+                buttonStyle={{
+                  border: 'none',
+                  borderRadius: '24px 0 0 24px',
+                  backgroundColor: 'transparent',
+                }}
+                containerStyle={{
+                  width: '100%',
+                  borderRadius: '24px',
+                }}
+                dropdownStyle={{
+                  borderRadius: '18px',
+                  boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+                  zIndex: 20,
+                }}
+              />
+            ) : (
+              <input
+                className="w-full rounded-3xl border-none bg-transparent px-4 py-3 text-[#541A1A] outline-none"
+                name="phone"
+                placeholder="Phone"
+                required
+                type="tel"
+                value={form.phone}
+                onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
+              />
+            )}
           </div>
           <input className="rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]" placeholder="Date" type="date" value={form.date} onChange={(event) => setForm((current) => ({ ...current, date: event.target.value }))} />
           <input className="rounded-3xl border border-[#DCC3AA] bg-white px-4 py-3 text-[#541A1A] outline-none focus:border-[#810B38] focus:ring-4 focus:ring-[rgba(129,11,56,0.12)]" placeholder="Time" type="time" value={form.time} onChange={(event) => setForm((current) => ({ ...current, time: event.target.value }))} />
