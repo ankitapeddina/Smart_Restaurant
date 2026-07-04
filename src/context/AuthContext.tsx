@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { authApi, getErrorMessage } from '../services/api'
+import { authApi, getErrorMessage, getLoginErrorMessage } from '../services/api'
 import type { User, UserCredentials, UserRegister } from '../types'
 
 interface AuthContextValue {
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       handleAuthResponse(response)
       return true
     } catch (error: unknown) {
-      throw new Error(getErrorMessage(error))
+      throw new Error(getLoginErrorMessage(error))
     }
   }
 

@@ -14,16 +14,45 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const app = express();
 const databaseName = process.env.DB_NAME || 'smart_restaurant';
 
+// General rate limiter for all API requests
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // 100 requests per window
   standardHeaders: true,
   legacyHeaders: false,
+});
+
+// Stricter rate limiter for login endpoint (to prevent brute force)
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 login attempts per 15 minutes
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: 'Too many login attempts, please try again later',
+  skip: (req) => {
+    // Only apply to login endpoint
+    return req.path !== '/api/auth/login';
+  },
+});
+
+// Stricter rate limiter for registration endpoint
+const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3, // 3 registration attempts per hour
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: 'Too many registration attempts, please try again later',
+  skip: (req) => {
+    // Only apply to register endpoint
+    return req.path !== '/api/auth/register';
+  },
 });
 
 app.use(helmet());
 app.use(cors({ origin: true, credentials: true }));
 app.use(limiter);
+app.use(loginLimiter);
+app.use(registerLimiter);
 app.use(express.json());
 
 app.get('/', (req, res) => {

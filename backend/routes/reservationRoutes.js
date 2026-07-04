@@ -4,7 +4,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.post('/', authMiddleware, createReservation);
-router.get('/', authMiddleware, getReservations);
+router.post('/', authMiddleware.optional, createReservation);
+router.get('/', authMiddleware.optional, getReservations);
 
 module.exports = router;
