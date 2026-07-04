@@ -19,6 +19,16 @@ import Settings from '../pages/Settings/Settings'
 import CartPage from '../pages/Cart/Cart'
 import Profile from '../pages/Profile/Profile'
 import NotFound from '../pages/NotFound/NotFound'
+import AdminLayout from '../pages/Admin/AdminLayout'
+import AdminLogin from '../pages/Admin/AdminLogin'
+import AdminRegister from '../pages/Admin/AdminRegister'
+import AdminDashboard from '../pages/Admin/AdminDashboard'
+import AdminReservations from '../pages/Admin/AdminReservations'
+import AdminOrders from '../pages/Admin/AdminOrders'
+import AdminCustomers from '../pages/Admin/AdminCustomers'
+import AdminReports from '../pages/Admin/AdminReports'
+import AdminForgotPassword from '../pages/Admin/AdminForgotPassword'
+import AdminProfile from '../pages/Admin/AdminProfile'
 import { useAuth } from '../context/AuthContext'
 
 const RouteLoading = () => (
@@ -50,12 +60,33 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
   return isAuthenticated ? <Navigate to="/" replace /> : children
 }
 
+const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const adminToken = typeof window !== 'undefined' ? window.localStorage.getItem('smart_restaurant_admin_token') : null
+  const adminRole = typeof window !== 'undefined' ? window.localStorage.getItem('smart_restaurant_admin_role') : null
+
+  const normalizedRole = adminRole === 'super_admin' ? 'super_admin' : adminRole
+  return adminToken && (normalizedRole === 'admin' || normalizedRole === 'super_admin') ? children : <Navigate to="/admin/login" replace />
+}
+
 const AppRoutes = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
       <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/register" element={<AdminRegister />} />
+      <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+      <Route path="/admin/dashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+      <Route path="/admin" element={<AdminProtectedRoute><AdminLayout /></AdminProtectedRoute>}>
+        <Route index element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="reservations" element={<AdminReservations />} />
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="customers" element={<AdminCustomers />} />
+        <Route path="reports" element={<AdminReports />} />
+        <Route path="profile" element={<AdminProfile />} />
+      </Route>
       <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
